@@ -4,17 +4,20 @@ import axios from './utils/axiosInterceptor';
 
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
+const API_URL = process.env.REACT_APP_API_URL;
 
-const socket = io('http://localhost:5000');
+const socket = io(`${API_URL}`);
 
 const PollResults = () => {
   const [results, setResults] = useState([]);
   const params = useParams();
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/polls/${params.id}/result`);
+        const response = await axios.get(`${API_URL}/polls/${params.id}/result`);
         setResults(response.data);
       } catch (error) {
         console.error('Error fetching results:', error);

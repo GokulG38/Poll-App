@@ -6,6 +6,8 @@ import axios from './utils/axiosInterceptor';
 const CreatePoll = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '', '', '']); 
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
 
   const handleOptionChange = (index, value) => {
@@ -22,7 +24,7 @@ const CreatePoll = () => {
       const nonEmptyOptions = options.filter(option => option.trim() !== '');
       console.log(nonEmptyOptions)
 
-      const response = await axios.post(`http://localhost:5000/create`, { question, options: nonEmptyOptions, userId });
+      const response = await axios.post(`${API_URL}/create`, { question, options: nonEmptyOptions, userId });
       console.log("5")
 
       console.log('Poll created:', response.data);

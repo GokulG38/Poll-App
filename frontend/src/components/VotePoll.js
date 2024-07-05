@@ -5,7 +5,8 @@ import axios from './utils/axiosInterceptor';
 import io from 'socket.io-client';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const socket = io('http://localhost:5000');
+const API_URL = process.env.REACT_APP_API_URL;
+const socket = io(`${API_URL}`);
 
 const VotePoll = () => {
   const [poll, setPoll] = useState(null);
@@ -15,16 +16,18 @@ const VotePoll = () => {
   const [commentText, setCommentText] = useState('');
   const params = useParams();
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchPollAndComments = async () => {
       try {
        
-        const pollResponse = await axios.get(`http://localhost:5000/polls/${params.id}`);
+        const pollResponse = await axios.get(`${API_URL}/polls/${params.id}`);
         setPoll(pollResponse.data);
 
         
-        const commentsResponse = await axios.get(`http://localhost:5000/polls/${params.id}/comments`);
+        const commentsResponse = await axios.get(`${API_URL}/polls/${params.id}/comments`);
         setComments(commentsResponse.data);
       } catch (error) {
         console.error('Error fetching poll or comments:', error);
@@ -50,7 +53,7 @@ const VotePoll = () => {
 
   const handleVote = async () => {
     try {
-      await axios.post(`http://localhost:5000/polls/${params.id}/vote`, { 
+      await axios.post(`${API_URL}/polls/${params.id}/vote`, { 
         option: selectedOption, 
         userId: localStorage.getItem("userId") 
       });
@@ -64,7 +67,7 @@ const VotePoll = () => {
 
   const handleCommentSubmit = async () => {
     try {
-      await axios.post(`http://localhost:5000/polls/${params.id}/comment`, {
+      await axios.post(`${API_URL}/polls/${params.id}/comment`, {
         text: commentText,
         userId: localStorage.getItem("userId"),
       });
@@ -81,7 +84,7 @@ const VotePoll = () => {
             userId: localStorage.getItem("userId"),
             parentId: parentId,
           })
-      await axios.post(`http://localhost:5000/polls/${params.id}/comment`, {
+      await axios.post(`${API_URL}/polls/${params.id}/comment`, {
         text: commentText,
         userId: localStorage.getItem("userId"),
         parentId: parentId,

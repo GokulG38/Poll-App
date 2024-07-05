@@ -5,12 +5,10 @@ const Poll = require("../models/pollSchema");
 const multer = require("multer");
 const path = require("path");
 const authMiddleware = require("../middleware/authMiddleware");
+const cloudinary = require('../utils/cloudinary');
 
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
   },
@@ -66,6 +64,8 @@ router.get('/:userId/polls', authMiddleware, async (req, res) => {
 });
 
 
+
+
 router.post('/:id/upload-profile-picture', upload.single('profilePicture'), authMiddleware, async (req, res) => {
   const userId = req.params.id;
 
@@ -74,9 +74,11 @@ router.post('/:id/upload-profile-picture', upload.single('profilePicture'), auth
   }
 
   try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     const user = await User.findByIdAndUpdate(
       userId,
-      { profilePicture: req.file.path },
+      { profilePicture: result.secure_url },
       { new: true }
     );
 
@@ -89,5 +91,6 @@ router.post('/:id/upload-profile-picture', upload.single('profilePicture'), auth
     res.status(500).send(err.message);
   }
 });
+
 
 module.exports = router;

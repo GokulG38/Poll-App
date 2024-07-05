@@ -11,11 +11,14 @@ const Profile = () => {
   const [uploaded, setUploaded] = useState(false);
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
+  const API_URL = process.env.REACT_APP_API_URL;
+
+
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/user/${userId}`);
+        const res = await axios.get(`${API_URL}/user/${userId}`);
         setUser(res.data.user);
         if (res.data.user.profilePicture) {
           setUploaded(true); 
@@ -45,7 +48,7 @@ const Profile = () => {
     formData.append('profilePicture', profilePicture);
 
     try {
-      const res = await axios.post(`http://localhost:5000/user/${userId}/upload-profile-picture`, formData, {
+      const res = await axios.post(`${API_URL}/user/${userId}/upload-profile-picture`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -69,7 +72,7 @@ const Profile = () => {
           <>
             {user.profilePicture && (
               <img
-                src={`http://localhost:5000/${user.profilePicture}`}
+                src={`${user.profilePicture}`}
                 alt="Profile"
                 className="w-40 h-40 rounded-full mb-4"
               />

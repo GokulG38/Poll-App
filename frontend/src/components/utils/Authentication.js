@@ -3,8 +3,10 @@ import axios from './axiosInterceptor';
 
 
 const sendUserLogRequest = async (data) => {
+  const API_URL = process.env.REACT_APP_API_URL;
+
     try {
-        const response = await axios.post('http://localhost:5000/login', {
+        const response = await axios.post(`${API_URL}/login`, {
             email: data.email,
             password: data.password
         });
@@ -16,8 +18,10 @@ const sendUserLogRequest = async (data) => {
 
 
 const handleSignup = async(input)=>{
+  const API_URL = process.env.REACT_APP_API_URL;
+
     try{
-        const response = await axios.post("http://www.localhost:5000/signup",{
+        const response = await axios.post(`${API_URL}/signup`,{
             name:input.name,
             email:input.email,
             password:input.password

@@ -6,15 +6,17 @@ import { Link } from 'react-router-dom';
 const Home = ({ myPolls }) => {
   const [polls, setPolls] = useState([]);
   const userId = localStorage.getItem('userId');
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchPolls = async () => {
       try {
         let response;
         if (myPolls) {
-          response = await axios.get(`http://localhost:5000/user/${userId}/polls`);
+          response = await axios.get(`${API_URL}/user/${userId}/polls`);
         } else {
-          response = await axios.get(`http://localhost:5000/polls`);
+          response = await axios.get(`${API_URL}/polls`);
         }
         setPolls(response.data);
       } catch (error) {

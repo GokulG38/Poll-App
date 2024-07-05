@@ -21,10 +21,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
+
 
 mongoose.connect(process.env.MONGO_URL);
 const db = mongoose.connection;
@@ -40,7 +41,7 @@ app.use((req, res, next) => {
   req.io = io;
   next();
 });
-app.use('/uploads', express.static('uploads'));
+
 app.use("/user", userRoutes);
 app.use("/polls", pollRoutes);
 
