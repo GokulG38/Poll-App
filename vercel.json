@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "name": "poll-app-backend",
     "builds": [
       {
         "src": "backend/app.js",
@@ -8,11 +7,11 @@
       }
     ],
     "routes": [
+      
       {
         "src": "/(.*)",
-        "dest": "/backend/app.js"
+        "dest": "backend/app.js"
       }
     ]
   }
-  
   
