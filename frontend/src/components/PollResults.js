@@ -5,10 +5,10 @@ import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || "https://poll-app-backend.vercel.app";
-const socket = io(API_URL, {
-  transports: ["websocket", "polling"],
-  withCredentials: true,
-});
+// const socket = io(API_URL, {
+//   transports: ["websocket", "polling"],
+//   withCredentials: true,
+// });
 
 const PollResults = () => {
   const [results, setResults] = useState([]);
