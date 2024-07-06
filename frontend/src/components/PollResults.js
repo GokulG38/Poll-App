@@ -1,18 +1,19 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from './utils/axiosInterceptor';
-import checkUser from "./utils/checkUser";
+import checkUser from "./utils/checkUser"
+
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
+const API_URL = process.env.REACT_APP_API_URL;
 
-const API_URL = process.env.REACT_APP_API_URL || "https://poll-app-backend.vercel.app";
-// const socket = io(API_URL, {
-//   transports: ["websocket", "polling"],
-//   withCredentials: true,
-// });
+const socket = io(`${API_URL}`);
 
 const PollResults = () => {
   const [results, setResults] = useState([]);
   const params = useParams();
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -24,16 +25,14 @@ const PollResults = () => {
       }
     };
 
-    const handleVoteEvent = (newResults) => {
-      setResults(newResults);
-    };
-
     fetchResults();
 
-    socket.on('vote', handleVoteEvent);
+    socket.on('vote', (newResults) => {
+      setResults(newResults);
+    });
 
     return () => {
-      socket.off('vote', handleVoteEvent);
+      socket.off('vote');
     };
   }, [params.id]);
 
