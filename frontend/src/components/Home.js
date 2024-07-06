@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from './utils/axiosInterceptor';
 import { Link } from 'react-router-dom';
+import checkUser from "./utils/checkUser"
+
 
 const Home = ({ myPolls }) => {
   const [polls, setPolls] = useState([]);
@@ -48,4 +50,4 @@ const Home = ({ myPolls }) => {
   );
 };
 
-export default Home;
+export default checkUser(Home);

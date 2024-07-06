@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from './utils/axiosInterceptor';
+import checkUser from "./utils/checkUser"
 
 import io from 'socket.io-client';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -179,4 +180,4 @@ function renderComment(comment) {
   );
 };
 
-export default VotePoll;
+export default checkUser(VotePoll);

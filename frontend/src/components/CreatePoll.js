@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from './utils/axiosInterceptor';
+import checkUser from "./utils/checkUser"
+
 
 
 
@@ -79,4 +81,4 @@ const CreatePoll = () => {
   );
 };
 
-export default CreatePoll;
+export default checkUser(CreatePoll);

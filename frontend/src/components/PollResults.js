@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from './utils/axiosInterceptor';
+import checkUser from "./utils/checkUser"
 
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
@@ -49,4 +50,4 @@ const PollResults = () => {
   );
 };
 
-export default PollResults;
+export default checkUser(PollResults);

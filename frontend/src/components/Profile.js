@@ -103,4 +103,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default checkUser(Profile);
