@@ -1,15 +1,13 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-import axios from './axiosInterceptor';
-
+import axios from './axiosInterceptor'; 
 
 const checkUser = (WrappedComponent) => {
-  return () => {
+  return (props) => { 
     const navigate = useNavigate();
     const [userExists, setUserExists] = useState(false);
-  const API_URL = process.env.REACT_APP_API_URL;
-
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
       const userId = localStorage.getItem("userId");
@@ -38,7 +36,7 @@ const checkUser = (WrappedComponent) => {
       }
     }, [navigate]); 
 
-    return userExists ? <WrappedComponent /> : null;
+    return userExists ? <WrappedComponent {...props} /> : null;
   };
 };
 
