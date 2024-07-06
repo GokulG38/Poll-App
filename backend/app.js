@@ -35,7 +35,7 @@ db.once('open', function () {
 });
 
 app.use(cors({
-  origin:["https://poll-app-frontend-eight.vercel.app"],
+  origin:process.env.FRONTEND_URL,
   methods:["POST", "GET"],
   credentials: "true"
 }));
