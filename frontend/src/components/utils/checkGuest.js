@@ -17,7 +17,7 @@ const checkGuest = (WrappedComponent) => {
 
       const fetchProfile = async () => {
         try {
-          const authRes = await axios.get(`${API_URL}user/${userId}`);
+          const authRes = await axios.get(`${API_URL}/user/${userId}`);
           if (authRes.status === 200) {
             setProfile(true); 
           }
