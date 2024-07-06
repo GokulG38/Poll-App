@@ -34,7 +34,11 @@ db.once('open', function () {
   console.log("Connected to MongoDB");
 });
 
-app.use(cors());
+app.use(cors({
+  origin:["https://poll-app-frontend-eight.vercel.app"],
+  methods:["POST", "GET"],
+  credentials: "true"
+}));
 app.use(express.json());
 
 app.use((req, res, next) => {
