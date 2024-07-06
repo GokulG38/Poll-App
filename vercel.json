@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "poll-app-backend",
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(polls|user)/(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app.js"
+    }
+  ]
+}
+
+  
